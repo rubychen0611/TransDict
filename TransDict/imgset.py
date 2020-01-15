@@ -35,7 +35,7 @@ class ClassInfo(object):
         return self.class_names
 
 
-class Imageset(object):
+class Imgset(object):
     """Base class representing a image dataset."""
     def __init__(self):
         self.img_names = []  # file name
@@ -253,7 +253,7 @@ class Imageset(object):
 
 
 
-class CustomImageset(Imageset):
+class CustomImgset(Imgset):
     def __init__(self):
         super().__init__()
     def load_with_labels(self, src_dir, csv_file, label_names):
@@ -334,7 +334,7 @@ class CustomImageset(Imageset):
             self.logger.info("Finish loading.")
 
 
-class SingleImage(Imageset):
+class SingleImage(Imgset):
     def __init__(self):
         super().__init__()
 
@@ -357,7 +357,7 @@ class SingleImage(Imageset):
             raise ImageLoadingError('Label %d is out of indexes' % label)
         self.labels.append(label)
 
-class CIFAR10_train(Imageset):
+class CIFAR10_train(Imgset):
     '''CIFRAR-10 training dataset'''
 
     def __init__(self, start=0, end=50000):
@@ -378,7 +378,7 @@ class CIFAR10_train(Imageset):
         self.labels = self.labels.reshape(len(self.labels))
 
 
-class CIFAR10_test(Imageset):
+class CIFAR10_test(Imgset):
     '''CIFRAR-10 testing dataset'''
     def __init__(self, start=0, end=10000):
         super().__init__()
@@ -398,7 +398,7 @@ class CIFAR10_test(Imageset):
         self.labels = self.labels.reshape(len(self.labels))
 
 
-class Imagenet_val(Imageset):
+class Imagenet_val(Imgset):
     def __init__(self, start=0, end=50000):
         super().__init__()
         label_name_file = open('../data/Imagenet/imagenet1000_clsidx_to_labels.txt')

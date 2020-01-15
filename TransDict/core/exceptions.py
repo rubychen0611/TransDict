@@ -23,3 +23,6 @@ class EmptySetError(Exception):
 class TransformationError(Exception):
     '''Thrown when the transformation fails'''
     pass
+
+class ModelTrainingError(Exception):
+    pass

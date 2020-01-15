@@ -1,8 +1,8 @@
-from TransDict.imageset import CIFAR10_train, CIFAR10_test, Imagenet_val,CustomImageset,SingleImage
+from TransDict.imgset import CIFAR10_train, CIFAR10_test, Imagenet_val,CustomImgset,SingleImage
 from TransDict.utils import clean_temp_dir
 import unittest
 
-class TestImageset(unittest.TestCase):
+class TestImgset(unittest.TestCase):
     def test_init_CIFAR10(self):
         cifar10_test = CIFAR10_test()
         cifar10_test.display()
@@ -13,9 +13,9 @@ class TestImageset(unittest.TestCase):
         #imagenet_val.display()
         imagenet_val.save('jpg', './crop')
 
-    def test_custom_imageset(self):
+    def test_custom_Imgset(self):
         clean_temp_dir()
-        custom = CustomImageset()
+        custom = CustomImgset()
         custom.load_with_labels(src_dir='../data/custom',csv_file='../data/custom.txt', label_names=['aaa','bbb'])
         #custom.load_without_labels(src_dir='../data/custom')
         custom.display()
@@ -29,7 +29,7 @@ class TestImageset(unittest.TestCase):
 
     def test_crop(self):
         clean_temp_dir()
-        custom = CustomImageset()
+        custom = CustomImgset()
         custom.load_with_labels(src_dir='../data/custom', csv_file='../data/custom.txt', label_names=['aaa', 'bbb'])
         custom.add('random_resize', 256, 481)
         custom.add('random_crop', 224, 224)
@@ -41,11 +41,11 @@ class TestImageset(unittest.TestCase):
 if __name__ == "__main__":
     #unittest.main()
     suite = unittest.TestSuite()
-    #suite.addTest(TestImageset('test_init_CIFAR10'))
-    suite.addTest(TestImageset('test_imagenet_val'))
-    #suite.addTest(TestImageset('test_custom_imageset'))
-    #suite.addTest(TestImageset('test_single_image'))
-    #suite.addTest(TestImageset('test_crop'))
+    #suite.addTest(TestImgset('test_init_CIFAR10'))
+    suite.addTest(TestImgset('test_imagenet_val'))
+    #suite.addTest(TestImgset('test_custom_Imgset'))
+    #suite.addTest(TestImgset('test_single_image'))
+    #suite.addTest(TestImgset('test_crop'))
 
     # suite =  unittest.TestLoader().loadTestsFromTestCase(MyTest)
     unittest.TextTestRunner(verbosity=2).run(suite)
