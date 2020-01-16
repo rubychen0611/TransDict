@@ -6,9 +6,9 @@ import demjson
 import numpy as np
 import os
 import time
-import tkinter as tk
+#import tkinter as tk
 
-from PIL import ImageTk, Image
+from PIL import Image
 from keras.datasets import cifar10, cifar100
 import cv2
 from TransDict import utils
@@ -49,8 +49,8 @@ class Imgset(object):
         self.todo_MT_list = []
         self.MT_history = []
 
-    def display(self, start_idx=0):
-        '''Generate a small window to display the images'''
+    '''def display(self, start_idx=0):
+        
         if self.get_size() == 0:
             raise EmptySetError('The image set is empty.')
         MAX_EDGE_SIZE = 200
@@ -123,13 +123,13 @@ class Imgset(object):
             window.update()
 
         frame2 = tk.Frame(window)
-        left_button = tk.Button(frame2, text='◁', width=2, height=1, command=on_click_left)
+        left_button = tk.Button(frame2, text='<', width=2, height=1, command=on_click_left)
         left_button.grid(row=0, column=1)
-        right_button = tk.Button(frame2, text='▷', width=2, height=1, command=on_click_right)
+        right_button = tk.Button(frame2, text='>', width=2, height=1, command=on_click_right)
         right_button.grid(row=0, column=2)
         frame2.pack(side='bottom', pady=10)
         frame1.pack(side='bottom')
-        window.mainloop()
+        window.mainloop()'''
 
     def save(self, dst_format, dst_dir):
         '''

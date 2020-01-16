@@ -1,5 +1,5 @@
 import sys
-sys.path.append(r'/home/czq/TransDict/')  # 这里要改为你自己的项目的主目录
+sys.path.append(r'/home/czq/TransDict/')
 from TransDict.imgset import CIFAR10_train, CIFAR10_test
 from TransDict.model import Model
 import unittest
