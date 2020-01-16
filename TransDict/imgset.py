@@ -371,6 +371,7 @@ class CIFAR10_train(Imgset):
             self.img_names.append("%05d" % (idx))
 
         (self.images, self.labels), _ = cifar10.load_data()
+        (self.images, self.labels), _ = cifar10.load_data()
         # self.labels = np_utils.to_categorical(self.labels, self.n_classes)
         self.images = self.images[start:end, :, :, :]
         self.images = self.images[..., ::-1]  # RBG to BGR

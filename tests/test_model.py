@@ -1,3 +1,5 @@
+import sys
+sys.path.append(r'/home/czq/TransDict/')  # 这里要改为你自己的项目的主目录
 from TransDict.imgset import CIFAR10_train, CIFAR10_test
 from TransDict.model import Model
 import unittest
@@ -7,6 +9,7 @@ class TestModel(unittest.TestCase):
         cifar10_test = CIFAR10_test()
         model = Model()
         model.train(cifar10_train, cifar10_test, 'ResNet')
+        model.save('./ResNet20.h5')
 
 
 if __name__ == "__main__":

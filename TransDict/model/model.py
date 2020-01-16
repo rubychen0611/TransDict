@@ -8,7 +8,7 @@ class Model(object):
         pass
 
     def save(self, filename):
-        pass
+        self.model.save(filename)
 
     def train(self, train_set, val_set, NN_type, *args):
         if NN_type == 'ResNet':
