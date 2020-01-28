@@ -6,11 +6,12 @@ import demjson
 import numpy as np
 import os
 import time
-#import tkinter as tk
-
-from PIL import Image
+import tkinter as tk
+from PIL import Image, ImageTk
 from keras.datasets import cifar10, cifar100
 import cv2
+from tensorflow.python.estimator import keras
+
 from TransDict import utils
 from TransDict.MTRecord import MT_Record
 from TransDict.transformer import *
@@ -49,7 +50,7 @@ class Imgset(object):
         self.todo_MT_list = []
         self.MT_history = []
 
-    '''def display(self, start_idx=0):
+    def display(self, start_idx=0):
         
         if self.get_size() == 0:
             raise EmptySetError('The image set is empty.')
@@ -129,7 +130,7 @@ class Imgset(object):
         right_button.grid(row=0, column=2)
         frame2.pack(side='bottom', pady=10)
         frame1.pack(side='bottom')
-        window.mainloop()'''
+        window.mainloop()
 
     def save(self, dst_format, dst_dir):
         '''
@@ -154,7 +155,7 @@ class Imgset(object):
         else:
             raise UnknownFormatError('Unknown format \'%s\', only \'png\' and \'jpg\' are supported.' % dst_format)
 
-    def get_img(self, idx):  # TODO: idx error
+    def get_img(self, idx):
         if self.in_memory == True:
             return self.images[idx]
         else:
@@ -250,6 +251,21 @@ class Imgset(object):
         if self.img_dir != '' and os.path.exists(self.img_dir):
             shutil.rmtree(self.img_dir)
         self.img_dir = ''
+
+    def preprocess(self, x, y, mean):
+        x_copy = x[:]
+        y_copy = y[:]
+        x_copy -= mean
+        # Normalize data.
+        x_copy = x_copy.astype('float32') / 255
+        y_copy = keras.utils.to_categorical(y_copy, self.class_info.get_n_classes())
+        return x_copy, y_copy
+
+    def cal_mean_std(self):
+        if self.in_memory:
+            self.mean = np.mean(self.images, axis=0)
+        else:
+            pass
 
 
 
@@ -371,13 +387,12 @@ class CIFAR10_train(Imgset):
             self.img_names.append("%05d" % (idx))
 
         (self.images, self.labels), _ = cifar10.load_data()
-        (self.images, self.labels), _ = cifar10.load_data()
         # self.labels = np_utils.to_categorical(self.labels, self.n_classes)
         self.images = self.images[start:end, :, :, :]
         self.images = self.images[..., ::-1]  # RBG to BGR
         self.labels = self.labels[start:end, :]
         self.labels = self.labels.reshape(len(self.labels))
-
+        self.cal_mean()
 
 class CIFAR10_test(Imgset):
     '''CIFRAR-10 testing dataset'''

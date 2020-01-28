@@ -4,8 +4,9 @@ import unittest
 
 class TestImgset(unittest.TestCase):
     def test_init_CIFAR10(self):
-        cifar10_test = CIFAR10_test()
-        cifar10_test.display()
+        cifar10_train = CIFAR10_train()
+        #print(cifar10_train.mean, cifar10_train.std)
+        #cifar10_train.display()
 
     def test_imagenet_val(self):
         clean_temp_dir()
@@ -41,8 +42,8 @@ class TestImgset(unittest.TestCase):
 if __name__ == "__main__":
     #unittest.main()
     suite = unittest.TestSuite()
-    #suite.addTest(TestImgset('test_init_CIFAR10'))
-    suite.addTest(TestImgset('test_imagenet_val'))
+    suite.addTest(TestImgset('test_init_CIFAR10'))
+    #suite.addTest(TestImgset('test_imagenet_val'))
     #suite.addTest(TestImgset('test_custom_Imgset'))
     #suite.addTest(TestImgset('test_single_image'))
     #suite.addTest(TestImgset('test_crop'))
