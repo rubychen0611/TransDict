@@ -3,6 +3,7 @@ import random
 import shutil
 import sys
 import demjson
+import keras
 import numpy as np
 import os
 import time
@@ -10,7 +11,6 @@ import tkinter as tk
 from PIL import Image, ImageTk
 from keras.datasets import cifar10, cifar100
 import cv2
-from tensorflow.python.estimator import keras
 
 from TransDict import utils
 from TransDict.MTRecord import MT_Record
@@ -255,13 +255,14 @@ class Imgset(object):
     def preprocess(self, x, y, mean):
         x_copy = x[:]
         y_copy = y[:]
+        x_copy = x_copy.astype('float32')
         x_copy -= mean
         # Normalize data.
         x_copy = x_copy.astype('float32') / 255
         y_copy = keras.utils.to_categorical(y_copy, self.class_info.get_n_classes())
         return x_copy, y_copy
 
-    def cal_mean_std(self):
+    def cal_mean(self):
         if self.in_memory:
             self.mean = np.mean(self.images, axis=0)
         else:
