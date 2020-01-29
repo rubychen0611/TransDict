@@ -48,17 +48,18 @@ class TestModel(unittest.TestCase):
         cifar10_test0 = CIFAR10_test()
         cifar10_test1 = CIFAR10_test()
         model = Model()
-        model.load('../saved_models/ResNet20.h5')
+        model.load('saved_models/ResNet20.h5')
         print("predict results: ")
         model.predict_comp(cifar10_test0, cifar10_test1, cifar10_train.mean)
-        cifar10_test1.add('resize', 24, 24)
+        cifar10_test1.add('resize_size', 24, 24)
+        cifar10_test1.add('resize_size', 32, 32)
         cifar10_test1.run()
         model.predict_comp(cifar10_test0, cifar10_test1, cifar10_train.mean)
 
 if __name__ == "__main__":
     #unittest.main()
     suite = unittest.TestSuite()
-    suite.addTest(TestModel('test_cifar10_training'))
+    suite.addTest(TestModel('test_cifar10_compare'))
 
     # suite =  unittest.TestLoader().loadTestsFromTestCase(MyTest)
     unittest.TextTestRunner(verbosity=2).run(suite)

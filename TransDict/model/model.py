@@ -1,4 +1,5 @@
 from keras.models import load_model
+import numpy as np
 
 from TransDict.model.resnet import ResNet
 class Model(object):
@@ -30,14 +31,18 @@ class Model(object):
         :return: comparision results
         '''
         x_0, y_0 = imgset0.preprocess(imgset0.images, imgset0.labels, mean)
+        x_0 = np.array(x_0)
         scores0 = self.model.evaluate(x_0, y_0, verbose=1)
         preds0 = self.model.predict(x_0)
+        preds0 = np.argmax(preds0, axis=1)
         print("before:")
         print(scores0)
 
         x_1, y_1 = imgset1.preprocess(imgset1.images, imgset1.labels, mean)
+        x_1 = np.array(x_1)
         scores1 = self.model.evaluate(x_1, y_1, verbose=1)
         preds1 = self.model.predict(x_1)
+        preds1 = np.argmax(preds1, axis=1)
         print("after:")
         print(scores1)
 
@@ -46,7 +51,7 @@ class Model(object):
         for i in range(len(preds0)):
             if preds0[i] != preds1[i]:
                 count += 1
-        print("difference: " + count)
+        print("difference: " + str(count))
 
     def get_params(self):
         pass

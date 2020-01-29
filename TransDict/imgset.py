@@ -253,10 +253,15 @@ class Imgset(object):
     def preprocess(self, x, y, mean):
         x_copy = x[:]
         y_copy = y[:]
-        x_copy = x_copy.astype('float32')
-        x_copy -= mean
+        #x_copy = x_copy.astype('float32')
+        
+        #x_copy -= mean
         # Normalize data.
-        x_copy = x_copy.astype('float32') / 255
+        for i in range(len(x_copy)):
+            x_copy[i] = x_copy[i].astype('float32')
+            x_copy[i] -= mean
+            x_copy[i] = x_copy[i]/255
+        #x_copy = x_copy.astype('float32') / 255
         y_copy = keras.utils.to_categorical(y_copy, self.class_info.get_n_classes())
         return x_copy, y_copy
 
