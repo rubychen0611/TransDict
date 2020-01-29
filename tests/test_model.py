@@ -17,13 +17,16 @@ class TestModel(unittest.TestCase):
         model.save('./ResNet20.h5')
 
         print("predict results: ")
-        scores = model.predict(CIFAR10_test, CIFAR10_train.mean)
+        scores = model.predict(cifar10_test, cifar10_train.mean)
         print(scores)
+
     def test_cifar10_load(self):
+        cifar10_train = CIFAR10_train()
+        cifar10_test = CIFAR10_test()
         model = Model()
         model.load('../saved_models/ResNet20.h5')
         print("predict results: ")
-        scores = model.predict(CIFAR10_test, CIFAR10_train.mean)
+        scores = model.predict(cifar10_test, cifar10_train.mean)
         print(scores)
 
     def test_cifar10_load1(self):
@@ -39,6 +42,17 @@ class TestModel(unittest.TestCase):
             temp[:, :, :, i] = (temp[:, :, :, i] - mean[i]) / std[i]
         scores = m.model.evaluate(temp, y_test, verbose=1)
         print(scores)
+
+    def test_cifar10_compare(self):
+        cifar10_train = CIFAR10_train()
+        cifar10_test0 = CIFAR10_test()
+        cifar10_test1 = CIFAR10_test()
+        model = Model()
+        model.load('../saved_models/ResNet20.h5')
+        print("predict results: ")
+        model.predict_comp(cifar10_test0, cifar10_test1, cifar10_train.mean)
+        cifar10_test1.add('resize', 24, 24)
+        model.predict_comp(cifar10_test0, cifar10_test1, cifar10_train.mean)
 
 if __name__ == "__main__":
     #unittest.main()
