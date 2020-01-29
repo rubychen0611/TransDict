@@ -6,11 +6,9 @@ import demjson
 import keras
 import numpy as np
 import os
-import time
-import tkinter as tk
-from PIL import Image, ImageTk
+#import tkinter as tk
+#from PIL import Image, ImageTk
 from keras.datasets import cifar10, cifar100
-import cv2
 
 from TransDict import utils
 from TransDict.MTRecord import MT_Record
@@ -50,7 +48,7 @@ class Imgset(object):
         self.todo_MT_list = []
         self.MT_history = []
 
-    def display(self, start_idx=0):
+    '''def display(self, start_idx=0):
         
         if self.get_size() == 0:
             raise EmptySetError('The image set is empty.')
@@ -131,7 +129,7 @@ class Imgset(object):
         frame2.pack(side='bottom', pady=10)
         frame1.pack(side='bottom')
         window.mainloop()
-
+    '''
     def save(self, dst_format, dst_dir):
         '''
         Save the image set to dst_dir with dst_format
@@ -387,10 +385,12 @@ class CIFAR10_train(Imgset):
         for idx in range(start, end):
             self.img_names.append("%05d" % (idx))
 
-        (self.images, self.labels), _ = cifar10.load_data()
-        # self.labels = np_utils.to_categorical(self.labels, self.n_classes)
-        self.images = self.images[start:end, :, :, :]
-        self.images = self.images[..., ::-1]  # RBG to BGR
+        (images_np, self.labels), _ = cifar10.load_data()
+        images_np = images_np[start:end, :, :, :]
+        images_np = images_np[..., ::-1]  # RBG to BGR
+        self.images = []
+        for img in images_np:
+            self.images.append(img)
         self.labels = self.labels[start:end, :]
         self.labels = self.labels.reshape(len(self.labels))
         self.cal_mean()
@@ -407,10 +407,12 @@ class CIFAR10_test(Imgset):
         for idx in range(start, end):
             self.img_names.append("%05d" % (idx))
 
-        _, (self.images, self.labels) = cifar10.load_data()
-        # self.labels = np_utils.to_categorical(self.labels, self.n_classes)
-        self.images = self.images[start:end, :, :, :]
-        self.images = self.images[..., ::-1]  # RBG to BGR
+        _, (images_np, self.labels) = cifar10.load_data()
+        images_np = images_np[start:end, :, :, :]
+        images_np = images_np[..., ::-1]  # RBG to BGR
+        self.images = []
+        for img in images_np:
+            self.images.append(img)
         self.labels = self.labels[start:end, :]
         self.labels = self.labels.reshape(len(self.labels))
 

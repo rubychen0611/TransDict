@@ -43,10 +43,10 @@ class Model(object):
 
         # difference between preds0 and preds1
         count = 0
-        for i in range(preds0):
+        for i in range(len(preds0)):
             if preds0[i] != preds1[i]:
                 count += 1
-        print("difference: ")
+        print("difference: " + count)
 
     def get_params(self):
         pass

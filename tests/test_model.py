@@ -52,6 +52,7 @@ class TestModel(unittest.TestCase):
         print("predict results: ")
         model.predict_comp(cifar10_test0, cifar10_test1, cifar10_train.mean)
         cifar10_test1.add('resize', 24, 24)
+        cifar10_test1.run()
         model.predict_comp(cifar10_test0, cifar10_test1, cifar10_train.mean)
 
 if __name__ == "__main__":

@@ -4,7 +4,9 @@ import unittest
 
 class TestImgset(unittest.TestCase):
     def test_init_CIFAR10(self):
-        cifar10_train = CIFAR10_train()
+        cifar10_test = CIFAR10_test()
+        cifar10_test.add('resize_size', 24, 24)
+        cifar10_test.run()
         #print(cifar10_train.mean, cifar10_train.std)
         #cifar10_train.display()
 
