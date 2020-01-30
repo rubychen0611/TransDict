@@ -152,9 +152,9 @@ def ResNet(trainset, valset, n=3, version=1, batch_size=32, epochs=200, data_aug
             fill_mode='nearest',
             # value used for fill_mode = "constant"
             cval=0.,
-            # randomly flip images
+            # randomly flip.py images
             horizontal_flip=True,
-            # randomly flip images
+            # randomly flip.py images
             vertical_flip=False,
             # set rescaling factor (applied before any other transformation)
             rescale=None,

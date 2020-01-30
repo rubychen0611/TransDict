@@ -6,8 +6,8 @@ import demjson
 import keras
 import numpy as np
 import os
-#import tkinter as tk
-#from PIL import Image, ImageTk
+import tkinter as tk
+from PIL import Image, ImageTk
 from keras.datasets import cifar10, cifar100
 
 from TransDict import utils
@@ -17,7 +17,9 @@ from .core import ClassInfoError, NoLabelsError, UnknownFormatError, ImageLoadin
 
 MAX_RAM_LIMIT = 4 * 1024  # MB
 switcher = {"crop": crop, "random_crop":random_crop, "resize_size": resize_size, "resize_scale": resize_scale,
-            "random_resize": random_resize}
+            "random_resize": random_resize, "rotate": rotate, "rotate_clockwise_90": rotate_clockwise_90,
+            "rotate_anticlockwise_90": rotate_anticlockwise_90, "flip_horizontal":flip_horizontal,
+            "flip_vertical": flip_vertical, "translate": translate, "scale": scale}
 class ClassInfo(object):
     '''Basic information of classes'''
 
@@ -48,11 +50,11 @@ class Imgset(object):
         self.todo_MT_list = []
         self.MT_history = []
 
-    '''def display(self, start_idx=0):
+    def display(self, start_idx=0):
         
         if self.get_size() == 0:
             raise EmptySetError('The image set is empty.')
-        MAX_EDGE_SIZE = 200
+        MAX_EDGE_SIZE = 250
 
         def resize_img(img):
             w = img.width
@@ -61,7 +63,7 @@ class Imgset(object):
                 w = (int)(w * MAX_EDGE_SIZE / h)
                 h = MAX_EDGE_SIZE
             else:
-                h = (int)(h * MAX_EDGE_SIZE / h)
+                h = (int)(h * MAX_EDGE_SIZE / w)
                 w = MAX_EDGE_SIZE
             img = img.resize((w, h))
             return img
@@ -70,6 +72,7 @@ class Imgset(object):
         window.title('Image Viewer')
         window.geometry('400x400')
         img = self.get_img(start_idx)
+        print(img.shape)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         img = Image.fromarray(img.astype('uint8')).convert('RGB')
         tkImage = ImageTk.PhotoImage(resize_img(img))
@@ -129,7 +132,7 @@ class Imgset(object):
         frame2.pack(side='bottom', pady=10)
         frame1.pack(side='bottom')
         window.mainloop()
-    '''
+
     def save(self, dst_format, dst_dir):
         '''
         Save the image set to dst_dir with dst_format

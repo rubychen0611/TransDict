@@ -33,13 +33,47 @@ class TestImgset(unittest.TestCase):
     def test_crop(self):
         clean_temp_dir()
         custom = CustomImgset()
-        custom.load_with_labels(src_dir='../data/custom', csv_file='../data/custom.txt', label_names=['aaa', 'bbb'])
+        #custom.load_with_labels(src_dir='../data/custom', csv_file='../data/custom.txt', label_names=['aaa', 'bbb'])
+        custom.load_without_labels('../data/custom')
+        #custom.display()
         custom.add('random_resize', 256, 481)
         custom.add('random_crop', 224, 224)
         custom.output_todo_list()
         custom.run()
-        custom.save('png','../data/output')
+        custom.display()
+        #custom.save('png','../data/output')
         custom.output_MT_history()
+
+    def test_rotate(self):
+        custom = CustomImgset()
+        custom.load_without_labels('../data/custom')
+        #custom.add('rotate', -1)
+        custom.add('rotate_clockwise_90')
+        custom.add('rotate_anticlockwise_90')
+        custom.run()
+        custom.display()
+
+    def test_flip(self):
+        custom = CustomImgset()
+        custom.load_without_labels('../data/custom')
+        #custom.add('flip_horizontal')
+        custom.add('flip_vertical')
+        custom.run()
+        custom.display()
+
+    def test_translate(self):
+        custom = CustomImgset()
+        custom.load_without_labels('../data/custom')
+        custom.add('translate', -10, 20)
+        custom.run()
+        custom.display()
+
+    def test_scale(self):
+        custom = CustomImgset()
+        custom.load_without_labels('../data/custom')
+        custom.add('scale', 0.99)
+        custom.run()
+        custom.display()
 
 if __name__ == "__main__":
     #unittest.main()
