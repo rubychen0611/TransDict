@@ -75,6 +75,87 @@ class TestImgset(unittest.TestCase):
         custom.run()
         custom.display()
 
+    def test_brightness_contrast(self):
+        custom = CustomImgset()
+        custom.load_without_labels('../data/custom')
+        custom.add('contrast', 0.5)
+        #custom.add('brightness', 70)
+        custom.run()
+        custom.display()
+
+    def test_blur(self):
+        custom = CustomImgset()
+        custom.load_without_labels('../data/custom')
+        #custom.add('mean_blur', (30, 30))
+        #custom.add('median_blur', 31)
+        custom.add('Gaussian_blur', (29, 29))
+        custom.run()
+        custom.display()
+
+    def test_mosaic(self):
+        custom = CustomImgset()
+        custom.load_without_labels('../data/custom')
+        custom.add('mosaic', 40)
+        custom.run()
+        custom.display()
+
+    def test_noise(self):
+        img = SingleImage()
+        img.load_without_label('../data/custom/9.jpg')
+        img.add('Gaussian_noise', 0, 3, 0.99)
+        img.run()
+        img.display()
+
+    def test_sharpen(self):
+        img = SingleImage()
+        img.load_without_label('../data/custom/11.jpg')
+        img.add('USM_sharpen')
+        img.run()
+        img.display()
+        #img.save('jpg', '../data/output')
+
+    def test_fragment(self):
+        img = SingleImage()
+        img.load_without_label('../data/custom/11.jpg')
+        img.add('fragment', 5)
+        img.run()
+        img.display()
+
+    def test_saturation(self):
+        img = SingleImage()
+        img.load_without_label('../data/custom/9.jpg')
+        img.add('saturation', -80)
+        img.run()
+        img.display()
+
+    def test_lightness(self):
+        img = SingleImage()
+        img.load_without_label('../data/custom/9.jpg')
+        img.add('lightness', -80)
+        img.run()
+        img.display()
+
+    def test_hue(self):
+        img = SingleImage()
+        img.load_without_label('../data/custom/12.jpg')
+        img.add('hue', 100)
+        img.run()
+        img.display()
+
+    def test_temperature(self):
+        img = SingleImage()
+        img.load_without_label('../data/custom/10.jpg')
+        img.add('color_temperature', 200)
+        img.run()
+        img.display()
+
+    def test_temperature(self):
+        img = SingleImage()
+        img.load_without_label('../data/custom/12.jpg')
+        img.add('exposure', 0.2)
+        img.run()
+        img.display()
+
 if __name__ == "__main__":
     #unittest.main()
     suite = unittest.TestSuite()

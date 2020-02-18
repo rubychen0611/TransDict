@@ -19,7 +19,11 @@ MAX_RAM_LIMIT = 4 * 1024  # MB
 switcher = {"crop": crop, "random_crop":random_crop, "resize_size": resize_size, "resize_scale": resize_scale,
             "random_resize": random_resize, "rotate": rotate, "rotate_clockwise_90": rotate_clockwise_90,
             "rotate_anticlockwise_90": rotate_anticlockwise_90, "flip_horizontal":flip_horizontal,
-            "flip_vertical": flip_vertical, "translate": translate, "scale": scale}
+            "flip_vertical": flip_vertical, "translate": translate, "scale": scale,"brightness":brightness,
+            "contrast":contrast, "mean_blur":mean_blur, "median_blur":median_blur, "Gaussian_blur":Gaussian_blur,
+            "mosaic":mosaic, "sp_noise":sp_noise, "Gaussian_noise":Gaussian_noise, "USM_sharpen":USM_sharpen,
+            "fragment":fragment, "saturation":saturation, "lightness": lightness, "color_temperature":color_temperature,
+            "hue":hue}
 class ClassInfo(object):
     '''Basic information of classes'''
 

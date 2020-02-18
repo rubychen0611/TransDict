@@ -1,5 +1,12 @@
 import cv2
+
 def rotate(img, angle):
+    '''
+    rotate the image by an angle
+    :param img: the orginal image
+    :param angle: angle（°）
+    :return: the rotated image
+    '''
     height = img.shape[0]
     width = img.shape[1]
     matRotate = cv2.getRotationMatrix2D((width * 0.5, height * 0.5), angle, 1)  # mat rotate 1 center 2 angle 3 缩放系数
